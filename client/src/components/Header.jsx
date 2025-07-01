@@ -1,17 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import logo from "../assets/Group.png"
 import cartLogo from "../assets/Cart.png"
 import Cart from './Cart'
 import { useCart } from "../context/CartContext";
 import HeaderLink from './HeaderLink'
 
-function Nav() {
+function Header() {
+  const [ready, setReady] = useState(false)
   const [cartVisible, setCartVisible] = useState(false)
   const {getCartItemCount} = useCart()
-
+  const location = useLocation()
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => setReady(true), 10);
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
+  
   function toggleCart() {
     setCartVisible(!cartVisible)
   }
+  
+  if (!ready) return null;
 
   return (
     <header>
@@ -49,4 +59,4 @@ function Nav() {
   )
 }
 
-export default Nav
+export default Header
