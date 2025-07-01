@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import parse from 'html-react-parser';
 import { useCart } from "../context/CartContext";
 import Attribute from "../components/Attribute";
