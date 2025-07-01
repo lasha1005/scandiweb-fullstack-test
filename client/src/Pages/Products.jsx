@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import CartLogo from "../assets/Empty Cart.svg"
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { useCart } from "../context/CartContext";
 import { GET_PRODUCTS } from '../graphql/queries/GET_PRODUCTS'
 
