@@ -20,7 +20,7 @@ function Nav() {
         px-3 py-2 sm:px-8 sm:py-4 shadow flex items-center
       '>
         <div className='flex-1 flex gap-4 sm:gap-6 justify-start'>
-          <HeaderLink path="/">Products</HeaderLink>
+          <HeaderLink path="/all">Products</HeaderLink>
           <HeaderLink path="/clothes">Clothes</HeaderLink>
           <HeaderLink path="/tech">Tech</HeaderLink>
         </div>
