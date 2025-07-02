@@ -28,8 +28,8 @@ function Attribute({attributes, selectedAttr, addAttribute, isCartAttribute}) {
                               key={opt.value} 
                               data-testid={
                                 isCartAttribute ? 
-                                `cart-item-attribute-${toKebabCase(options.name)}-${toKebabCase(options.name)}${isSelected ? "-selected":""}` 
-                                : null
+                                `cart-item-attribute-${toKebabCase(options.name)}-${opt.display_value}${isSelected ? "-selected":""}` 
+                                : `product-attribute-${toKebabCase(options.name)}-${opt.display_value}`
                               }
                               className={[
                                 "border box-border text-center transition w-15 h-15",
