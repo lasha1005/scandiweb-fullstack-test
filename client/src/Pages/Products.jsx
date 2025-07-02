@@ -3,6 +3,7 @@ import CartLogo from "../assets/Empty Cart.svg"
 import { Link } from 'react-router-dom'
 import { useCart } from "../context/CartContext";
 import { GET_PRODUCTS } from '../graphql/queries/GET_PRODUCTS'
+import { toKebabCase } from '../utils/kebabCase';
 
 function Products({ categoryName }) {
   const {
@@ -38,7 +39,7 @@ function Products({ categoryName }) {
   const productsElement = products && products.map((product) => {
     return (
         <Link 
-          data-testid={`product-${product.id}`}
+          data-testid={`product-${toKebabCase(product.name)}`}
           to={`/${product.id}`} 
           key={product.id} 
           className='group relative flex flex-col justify-start p-2 sm:p-[10px] bg-white hover:shadow-2xl transition'>

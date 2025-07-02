@@ -15,10 +15,12 @@ function Cart({cartVisible}) {
   return (
     <>
       {cartVisible && (
-        <div className="
-          fixed bottom-0 left-0 right-0 mx-auto sm:absolute sm:right-20 sm:left-auto sm:top-16 sm:bottom-auto z-40
-          min-w-[90vw] max-w-[98vw] sm:min-w-[325px] sm:max-w-[400px] max-h-[80vh] sm:max-h-[600px]
-          bg-white shadow-2xl p-4 overflow-y-auto">
+        <div 
+          className="
+            fixed bottom-0 left-0 right-0 mx-auto sm:absolute sm:right-20 sm:left-auto sm:top-16 sm:bottom-auto z-40
+            min-w-[90vw] max-w-[98vw] sm:min-w-[325px] sm:max-w-[400px] max-h-[80vh] sm:max-h-[600px]
+            bg-white shadow-2xl p-4 overflow-y-auto"
+          data-testid='cart-overlay'>
           <h4 className="font-raleway mb-5">
             <span className="font-bold">My bag </span> 
             {itemCount} {itemCount > 1 ? "items" : "item"}
