@@ -12,6 +12,8 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
     const [cartVisible, setCartVisible] = useState(false);
 
+    const [createOrder] = useMutation(PLACE_ORDER)
+    
     function toggleCart(fromProductsButton) {
         if(!fromProductsButton) {
             setCartVisible(!cartVisible);
@@ -20,7 +22,6 @@ export function CartProvider({ children }) {
         }
     }
 
-    const [createOrder] = useMutation(PLACE_ORDER)
 
     function isSameAttributes(attr1, attr2) {
         if (!Array.isArray(attr1) || !Array.isArray(attr2)) return false;
@@ -84,7 +85,7 @@ export function CartProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartItemCount, handleOrder}} >
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartItemCount, handleOrder, cartVisible, toggleCart}} >
             {children}
         </CartContext.Provider>
     )
