@@ -58,7 +58,7 @@ function Products({ categoryName }) {
             )}
             {product.in_stock && (
               <button 
-                className='hidden group-hover:flex absolute bottom-3 right-3 z-10 bg-primary w-10 h-10 sm:w-12 sm:h-12 rounded-full items-center justify-center transition'
+                className='hidden group-hover:flex absolute bottom-3 right-3 z-5 bg-primary w-10 h-10 sm:w-12 sm:h-12 rounded-full items-center justify-center transition'
                 onClick={(e) => quickShop(e, product)}>
                 <img src={CartLogo} alt="cart-icon" />
               </button>
