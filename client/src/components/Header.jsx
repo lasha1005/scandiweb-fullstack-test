@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 import logo from "../assets/Group.png"
 import cartLogo from "../assets/Cart.png"
 import Cart from './Cart'
@@ -7,16 +5,7 @@ import { useCart } from "../context/CartContext";
 import HeaderLink from './HeaderLink'
 
 function Header() {
-  const [ready, setReady] = useState(false)
   const { getCartItemCount, cartVisible, toggleCart, loading } = useCart()
-  const location = useLocation()
-  
-  useEffect(() => {
-    const timeout = setTimeout(() => setReady(true), 10);
-    return () => clearTimeout(timeout);
-  }, [location.pathname]);
-  
-  if (!ready) return null;
 
   return (
     <header>
