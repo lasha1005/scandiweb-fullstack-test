@@ -8,7 +8,7 @@ import HeaderLink from './HeaderLink'
 
 function Header() {
   const [ready, setReady] = useState(false)
-  const { getCartItemCount, cartVisible, toggleCart } = useCart()
+  const { getCartItemCount, cartVisible, toggleCart, loading } = useCart()
   const location = useLocation()
   
   useEffect(() => {
@@ -48,7 +48,7 @@ function Header() {
           )}
         </div>
       </nav>
-      {cartVisible && <div className='fixed inset-0 bg-black opacity-30 z-10' onClick={() => toggleCart(false)}></div>}
+      {cartVisible && <div className='fixed inset-0 bg-black opacity-30 z-10' onClick={() => !loading && toggleCart(false)}></div>}
       <div className="h-15 sm:h-20" />
     </header>
   )
