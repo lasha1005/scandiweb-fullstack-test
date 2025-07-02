@@ -12,7 +12,7 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
     const [cartVisible, setCartVisible] = useState(false);
 
-    const [createOrder] = useMutation(PLACE_ORDER)
+    const [createOrder, { loading }] = useMutation(PLACE_ORDER)
     
     function toggleCart(fromProductsButton) {
         if(!fromProductsButton) {
@@ -85,7 +85,7 @@ export function CartProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartItemCount, handleOrder, cartVisible, toggleCart}} >
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartItemCount, handleOrder, cartVisible, toggleCart, loading }} >
             {children}
         </CartContext.Provider>
     )
