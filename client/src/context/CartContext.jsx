@@ -9,7 +9,16 @@ export function useCart() {
 }
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useState([]);
+    const [cartVisible, setCartVisible] = useState(false);
+
+    function toggleCart(fromProductsButton) {
+        if(!fromProductsButton) {
+            setCartVisible(!cartVisible);
+        }else {
+            setCartVisible(true);
+        }
+    }
 
     const [createOrder] = useMutation(PLACE_ORDER)
 

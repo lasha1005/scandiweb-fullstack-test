@@ -8,18 +8,13 @@ import HeaderLink from './HeaderLink'
 
 function Header() {
   const [ready, setReady] = useState(false)
-  const [cartVisible, setCartVisible] = useState(false)
-  const {getCartItemCount} = useCart()
+  const { getCartItemCount, cartVisible, toggleCart } = useCart()
   const location = useLocation()
   
   useEffect(() => {
     const timeout = setTimeout(() => setReady(true), 10);
     return () => clearTimeout(timeout);
   }, [location.pathname]);
-  
-  function toggleCart() {
-    setCartVisible(!cartVisible)
-  }
   
   if (!ready) return null;
 
@@ -38,7 +33,7 @@ function Header() {
             <img src={logo} alt="logo" className='h-8'/>
         </div>
         <div className='flex flex-1 justify-end'>
-          <button className='relative cursor-pointer' onClick={toggleCart} data-testid='cart-btn'>
+          <button className='relative cursor-pointer' onClick={() => toggleCart(false)} data-testid='cart-btn'>
             <img src={cartLogo} alt="Cart" className='h-6' />
             {getCartItemCount() > 0 && (
               <span className='
@@ -53,7 +48,7 @@ function Header() {
           )}
         </div>
       </nav>
-      {cartVisible && <div className='fixed inset-0 bg-black opacity-30 z-10' onClick={toggleCart}></div>}
+      {cartVisible && <div className='fixed inset-0 bg-black opacity-30 z-10' onClick={() => toggleCart(false)}></div>}
       <div className="h-15 sm:h-20" />
     </header>
   )

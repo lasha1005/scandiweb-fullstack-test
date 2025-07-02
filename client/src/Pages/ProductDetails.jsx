@@ -7,21 +7,21 @@ import Attribute from "../components/Attribute";
 import { GET_PRODUCT } from "../graphql/queries/GET_PRODUCT";
 
 function ProductDetails() {
-    const [currentImage, setCurrentImage] = useState(0)
-    const [selectedAttr, setSelectedAttr] = useState([])
-    const params = useParams()
-    const {data: {Product} = {}, loading} = useQuery(GET_PRODUCT, {variables: {id: params.id}})
+    const [currentImage, setCurrentImage] = useState(0);
+    const [selectedAttr, setSelectedAttr] = useState([]);
+    const params = useParams();
+    const {data: {Product} = {}, loading} = useQuery(GET_PRODUCT, {variables: {id: params.id}});
 
-    const {  addToCart } = useCart()
+    const {  addToCart, toggleCart } = useCart();
 
     function switchImage(direction, index) {
         if(index >= 0) {
             setCurrentImage(index)
         }
         if(direction === "forward") {
-            setCurrentImage(prevImage => prevImage === Product.gallery.length - 1 ? 0 : prevImage + 1)
+            setCurrentImage(prevImage => prevImage === Product.gallery.length - 1 ? 0 : prevImage + 1);
         }else if (direction === "back") {
-            setCurrentImage(prevImage => prevImage === 0  ? Product.gallery.length - 1 : prevImage - 1)
+            setCurrentImage(prevImage => prevImage === 0  ? Product.gallery.length - 1 : prevImage - 1);
         }
     }
 
@@ -29,15 +29,15 @@ function ProductDetails() {
         setSelectedAttr(prevAttr => {
             const filtered = prevAttr.filter(attr => attr.name !== name)
             return [...filtered, {name, value}]
-        })
+        });
     }
 
     function handleAddToCart() {
         if(!Product) return;
         const requiredAttrs = Object.keys(Product.attributes || {});
-        const selectedCount = Object.keys(selectedAttr).length
+        const selectedCount = Object.keys(selectedAttr).length;
         if(selectedCount < requiredAttrs.length) {
-            alert("Please select all attributes before adding to cart")
+            alert("Please select all attributes before adding to cart");
             return
         }
         const cartItem = {
@@ -45,7 +45,8 @@ function ProductDetails() {
             selectedAttributes: selectedAttr,
             quantity: 1,
         }
-        addToCart(cartItem)
+        addToCart(cartItem);
+        toggleCart(true);
     }
 
     if(loading) {

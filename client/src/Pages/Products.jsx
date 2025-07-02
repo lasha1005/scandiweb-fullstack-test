@@ -13,27 +13,28 @@ function Products({ categoryName }) {
       } = {} 
     } = {}, 
     loading
-  } = useQuery(GET_PRODUCTS, {variables : {name: categoryName}})
+  } = useQuery(GET_PRODUCTS, {variables : {name: categoryName}});
 
-  const {addToCart} = useCart()
+  const { addToCart, toggleCart } = useCart();
 
   function quickShop(e, product) {
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
     let selectedAttr = []
     
     product.attributes.forEach((attrArray) => {
       if(attrArray.items.length > 0) {
         selectedAttr.push({name:attrArray.name, value:attrArray.items[0].display_value})
       }
-    })
+    });
       
     const cartItem = { 
         ...product,
         selectedAttributes: selectedAttr,
         quantity: 1,
     }
-    addToCart(cartItem)
+    addToCart(cartItem);
+    toggleCart(true);
   }
 
   const productsElement = products && products.map((product) => {
