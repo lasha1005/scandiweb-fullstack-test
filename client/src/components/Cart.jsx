@@ -42,13 +42,13 @@ function Cart({cartVisible}) {
                   <button  
                     data-testid='cart-item-amount-increase' 
                     className="border px-2 cursor-pointer" 
-                    onClick={() => addToCart(item)}
+                    onClick={() => !loading && addToCart(item)}
                     >+</button>
                   <p data-testid='cart-item-amount'>{item.quantity}</p>
                   <button  
                     data-testid='cart-item-amount-decrease' 
                     className="border px-2 cursor-pointer" 
-                    onClick={() => removeFromCart(item)}
+                    onClick={() => !loading && removeFromCart(item)}
                     >-</button>
                 </div>
               </div>
