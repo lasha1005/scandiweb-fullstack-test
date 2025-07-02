@@ -7,7 +7,8 @@ function Cart({cartVisible}) {
     getCartItemCount, 
     addToCart, 
     removeFromCart, 
-    handleOrder 
+    handleOrder,
+    loading
   } = useCart();
 
   const itemCount = getCartItemCount();
@@ -73,7 +74,7 @@ function Cart({cartVisible}) {
           onClick={handleOrder} 
           disabled={cart.length <= 0}
           >
-            PLACE ORDER
+            {loading ? "Loading..." : "PLACE ORDER"}
           </button>
         </div>
       )}
