@@ -40,6 +40,7 @@ function ProductDetails() {
             alert("Please select all attributes before adding to cart");
             return
         }
+        
         const cartItem = {
             ...Product,
             selectedAttributes: selectedAttr,
@@ -112,7 +113,7 @@ function ProductDetails() {
                                         disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed
                                     " 
                                     onClick={handleAddToCart}
-                                    disabled={!Product.in_stock}
+                                    disabled={!Product.in_stock || Object.keys(selectedAttr).length < Product.attributes.length}
                                     >
                                     ADD TO CART
                                 </button>
