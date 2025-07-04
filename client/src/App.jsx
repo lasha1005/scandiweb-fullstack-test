@@ -9,10 +9,10 @@ import { CartProvider } from './context/CartContext'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
-    <Route index element={<Products categoryName="all" />} />
-    <Route path='all' element={<Products categoryName="all"/>}/>
-    <Route path='tech' element={<Products categoryName="tech"/>}/>
-    <Route path='clothes' element={<Products categoryName="clothes"/>}/>
+    <Route index element={<Products categoryName="All" />} />
+    <Route path='all' element={<Products categoryName="All"/>}/>
+    <Route path='tech' element={<Products categoryName="Tech"/>}/>
+    <Route path='clothes' element={<Products categoryName="Clothes"/>}/>
     <Route path='/:id' element={<ProductDetails />}/>
   </Route>
 ))
