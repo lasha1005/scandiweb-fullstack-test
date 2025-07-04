@@ -2,24 +2,15 @@
 
 declare(strict_types=1);
 
-use Dotenv\Dotenv;
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 if (file_exists(__DIR__ . '/../.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
 }
-
-
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
@@ -27,23 +18,20 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
 $routeInfo = $dispatcher->dispatch(
     $_SERVER['REQUEST_METHOD'],
-    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+    $_SERVER['REQUEST_URI']
 );
 
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        http_response_code(404);
-        echo json_encode(['error' => 'Route not found']);
+        // ... 404 Not Found
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        http_response_code(405);
-        echo json_encode(['error' => 'Method not allowed']);
+        $allowedMethods = $routeInfo[1];
+        // ... 405 Method Not Allowed
         break;
     case FastRoute\Dispatcher::FOUND:
-        [$class, $method] = $routeInfo[1];
+        $handler = $routeInfo[1];
         $vars = $routeInfo[2];
-        $controller = new $class();
-        $response = $controller->$method($vars);
-        echo $response;
+        echo $handler($vars);
         break;
 }
