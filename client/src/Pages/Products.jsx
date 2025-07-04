@@ -78,7 +78,7 @@ function Products({ categoryName }) {
 
   return (
     <div className='py-6 px-2 sm:py-12 sm:px-6 md:px-20'>
-      <h1 className='font-raleway font-semibold text-xl sm:text-3xl mb-4 sm:mb-10'>Products</h1>
+      <h1 className='font-raleway font-semibold text-xl sm:text-3xl mb-4 sm:mb-10'>{ categoryName }</h1>
       <div className='w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8'>
         {productsElement}
       </div>
