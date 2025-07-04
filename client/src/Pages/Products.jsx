@@ -13,7 +13,7 @@ function Products({ categoryName }) {
       } = {} 
     } = {}, 
     loading
-  } = useQuery(GET_PRODUCTS, {variables : {name: categoryName}});
+  } = useQuery(GET_PRODUCTS, {variables : { name: categoryName.toLowerCase() }});
 
   const { addToCart, toggleCart } = useCart();
 
