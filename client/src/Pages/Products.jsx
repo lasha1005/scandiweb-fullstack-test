@@ -72,7 +72,7 @@ function Products({ categoryName }) {
 
   if(loading) {
     return <div className='py-6 px-2 sm:py-12 sm:px-6 md:px-20'>
-      <h1 className='font-raleway font-semibold text-xl sm:text-3xl mb-4 sm:mb-10'>Products...</h1>
+      <h1 className='font-raleway font-semibold text-xl sm:text-3xl mb-4 sm:mb-10'>Loading...</h1>
     </div>
   }
 
