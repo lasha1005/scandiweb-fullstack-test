@@ -15,11 +15,9 @@ use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
 use App\Controller\TypeDefs\ProductTypes;
-use App\Models\Categories\Category;
-use App\Models\Order\Order;
-use App\Models\Products\ClothesProduct;
-use App\Models\Products\Products;
-use App\Models\Products\TechProduct;
+use App\Resolvers\CategoryResolver;
+use App\Resolvers\OrderResolver;
+use App\Resolvers\ProductResolver;
 
 class GraphQL {
     static public function handle() {
@@ -40,37 +38,14 @@ class GraphQL {
                         "args" => [
                             "name" => Type::string()
                         ],
-                        "resolve" => static function (array $root, array $args) use ($pdo) {
-                            if(!empty($args['name'])) {
-                                return Category::getCategory($args['name'], $pdo);
-                            }
-                            return null;
-                        } 
+                        "resolve" => [CategoryResolver::class, 'resolveCategory']
                     ],
                     "Product" => [
                         "type" => ProductTypes::build($pdo),
                         "args" => [
                             "id" => Type::nonNull(Type::id())
                         ],
-                        "resolve" => static function($root, $args) use ($pdo) {
-                            $data = Products::getProduct($args["id"], $pdo);
-                            if(!$data) {
-                                return null;
-                            }
-
-                            $type = strtolower($data["category"]);
-                            $classMap = [
-                                "tech" => TechProduct::class,
-                                "clothes" => ClothesProduct::class,
-                            ];
-
-                            if(!isset($classMap[$type])) {
-                                return null;
-                            }
-
-                            $product = new $classMap[$type]($data);
-                            return $product->getGallery($pdo)->getPrice($pdo)->toArray();
-                        }
+                        "resolve" => [ProductResolver::class, 'resolveProduct']
                     ],  
                 ],
             ]);
@@ -83,10 +58,7 @@ class GraphQL {
                         'args' => [
                             'order' => OrderInputType::build()
                         ],
-                        'resolve' => static function($root, $args) use($pdo) {
-                            $order = new Order($args['order']['products']);
-                            return $order->create($pdo);
-                        }
+                        'resolve' => [OrderResolver::class, 'resolveOrder']
                     ],
                 ],
             ]);
@@ -105,9 +77,11 @@ class GraphQL {
             $input = json_decode($rawInput, true);
             $query = $input['query'];
             $variableValues = $input['variables'] ?? null;
-        
+            $context = [
+                'pdo' => $pdo,
+            ];
             $rootValue = ['prefix' => 'You said: '];
-            $result = GraphQLBase::executeQuery($schema, $query, $rootValue, null, $variableValues);
+            $result = GraphQLBase::executeQuery($schema, $query, $rootValue, $context, $variableValues);
             $output = $result->toArray();
         } catch (Throwable $e) {
             $output = [

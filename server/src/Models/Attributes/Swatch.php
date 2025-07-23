@@ -16,14 +16,4 @@ class Swatch extends Attributes
     {
         return "swatch";
     }
-
-    public function toArray():array
-    {
-        return [
-            "type" => $this->getType(),
-            "display_value" => $this->display_value,
-            "value" => $this->value,
-            "item_id" => $this->item_id,
-        ];
-    }
 }

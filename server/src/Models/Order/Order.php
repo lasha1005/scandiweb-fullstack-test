@@ -7,6 +7,7 @@ namespace App\Models\Order;
 class Order
 {
     private $products;
+    
     public function __construct(array $products)
     {
         $this->products = $products;

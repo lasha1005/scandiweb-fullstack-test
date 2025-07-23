@@ -8,8 +8,11 @@ function HeaderLink({path, children}) {
     <NavLink 
         to={path}
         className={({isActive}) => 
-            `uppercase font-raleway text-sm sm:text-base ${isActive ? 'font-bold text-green-500 border-b-2 border-green-500' : "text-gray-700"}`
-        }
+          `uppercase font-raleway text-sm sm:text-base
+          ${isActive 
+            ? 'font-semibold text-primary border-b-2 border-primary' 
+            :"text-secondary hover:text-primary"}
+        `}
         data-testid={isActive ? "active-category-link" : "category-link"}
         >
           {children}

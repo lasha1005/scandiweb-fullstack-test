@@ -16,5 +16,6 @@ abstract class Category
     }
 
     abstract public function getType(): string;
+    
     abstract public function getProducts(\PDO $pdo): array;
 }

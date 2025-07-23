@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\TypeDefs;
 
-use App\Models\Attributes\Attributes;
+use App\Resolvers\AttributeResolver;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -42,7 +42,7 @@ class ProductTypes {
         return self::$priceType;
     }
 
-    public static function build(\PDO $pdo) 
+    public static function build() 
     {
         if(!self::$productType) {
             self::$productType =  new ObjectType([
@@ -57,10 +57,8 @@ class ProductTypes {
                     "gallery" => Type::listOf(self::getGalleryType()),
                     "price" => self::getPriceType(),
                     "attributes" => [
-                        "type" => Type::listOf(AttributeTypes::build($pdo)),
-                        "resolve" => static function ($root) use ($pdo) {
-                            return Attributes::getAttributes($pdo, $root['id']);
-                        }
+                        "type" => Type::listOf(AttributeTypes::build()),
+                        "resolve" => [AttributeResolver::class, 'resolveAttribute']
                     ]
     
                     

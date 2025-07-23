@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Products;
 
+use GraphQL\Error\UserError;
+
 abstract class Products
 {
     protected int|string $id;
@@ -32,7 +34,11 @@ abstract class Products
             WHERE products.id = ?
         ");
         $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if($result === false || $result === null) {
+            throw new UserError("Product with ID \"$id\" not found.");
+        } 
+        return $result;
     }
 
     public function getGallery(\PDO $pdo):Products {
@@ -54,9 +60,21 @@ abstract class Products
         $stmt->execute([$this->id]);
         $this->price = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $this;
+    }
+     
+    public function toArray(): array
+    {
+         return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'brand' => $this->brand,
+            'description' => $this->description,
+            'in_stock' => $this->in_stock,
+            'category' => $this->getType(),
+            'gallery' => $this->gallery,
+            'price' => $this->price
+        ];
     } 
 
     abstract public function getType(): string;
-
-    abstract public function toArray(): array;
 }

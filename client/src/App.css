@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-raleway: "Raleway", "Sans-Serif";
+    --font-roboto: "Roboto", "Sans-Serif";
+    --font-sans-pro: "Source Sans Pro", "Sans-Serif";
     --color-primary: #5ECE7B;
     --color-secondary: #1D1F22;
 }   

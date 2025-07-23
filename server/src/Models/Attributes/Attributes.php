@@ -38,5 +38,14 @@ abstract class Attributes
     } 
     
     abstract public function getType(): string;
-    abstract public function toArray(): array;
+    
+    public function toArray():array
+    {
+        return [
+            "type" => $this->getType(),
+            "display_value" => $this->display_value,
+            "value" => $this->value,
+            "item_id" => $this->item_id,
+        ];
+    }
 }

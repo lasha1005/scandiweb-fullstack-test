@@ -33,7 +33,8 @@ export function CartProvider({ children }) {
 
     function addToCart(item) {
         const existingIndex = cart.findIndex(product => 
-            product.id === item.id && isSameAttributes(product.selectedAttributes, item.selectedAttributes)
+            product.id === item.id && 
+            isSameAttributes(product.selectedAttributes, item.selectedAttributes)
         )
         if (existingIndex !== -1) {
             setCart(prevCart => 
@@ -48,7 +49,9 @@ export function CartProvider({ children }) {
     function removeFromCart(item) {
         setCart(prevCart => {
             return prevCart.map(product => {
-                if(product.id ===  item.id && isSameAttributes(product.selectedAttributes, item.selectedAttributes)) {
+                if(
+                    product.id ===  item.id && 
+                    isSameAttributes(product.selectedAttributes, item.selectedAttributes)) {
                     if(product.quantity > 1) {
                         return {...product,  quantity: product.quantity - 1}
                     }
@@ -65,7 +68,13 @@ export function CartProvider({ children }) {
         try {
             const response = await createOrder({variables: {
                 order : {
-                    products: cart.map(item=> ({id: item.id, quantity: item.quantity, selectedAttributes:item.selectedAttributes}))
+                    products: cart.map(item => (
+                        {
+                            id: item.id, 
+                            quantity: item.quantity, 
+                            selectedAttributes: item.selectedAttributes
+                        }
+                    ))
                 }
             }})
             const {result, success} = response.data.createOrder;
@@ -85,7 +94,17 @@ export function CartProvider({ children }) {
     }
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartItemCount, handleOrder, cartVisible, toggleCart, loading }} >
+        <CartContext.Provider value={{ 
+            cart, 
+            addToCart, 
+            removeFromCart, 
+            getCartItemCount, 
+            handleOrder, 
+            cartVisible, 
+            toggleCart, 
+            loading 
+            }} 
+        >
             {children}
         </CartContext.Provider>
     )

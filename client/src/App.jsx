@@ -1,19 +1,29 @@
 import './App.css'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
-import Products from './Pages/Products'
-import Layout from './components/Layout'
-import ProductDetails from './Pages/ProductDetails'
+import { 
+  ApolloClient, 
+  InMemoryCache, 
+  ApolloProvider } from '@apollo/client'
+import { 
+  Route, 
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  RouterProvider, 
+  Navigate } from 'react-router-dom'
+import Products from './Pages/ProductsPage/Products'
+import Layout from './components/layout/Layout'
+import ProductDetails from './Pages/ProductDetailsPage/ProductDetails'
+import ErrorPage from './Pages/ErrorPage'
 import { CartProvider } from './context/CartContext'
 
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
-    <Route index element={<Products categoryName="All" />} />
+    <Route index element={<Navigate to="/all"/>} />
     <Route path='all' element={<Products categoryName="All"/>}/>
     <Route path='tech' element={<Products categoryName="Tech"/>}/>
     <Route path='clothes' element={<Products categoryName="Clothes"/>}/>
-    <Route path='/:id' element={<ProductDetails />}/>
+    <Route path='product/:id' element={<ProductDetails />}/>
+    <Route path="*" element={<ErrorPage message={"Error 404 Page Not Found"}/>}/>
   </Route>
 ))
 

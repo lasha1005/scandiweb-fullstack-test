@@ -1,8 +1,6 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "/all", "permanent": false }
-  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
 }
+
