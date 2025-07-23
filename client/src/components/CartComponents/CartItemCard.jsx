@@ -1,5 +1,5 @@
 import Attribute from "../Attribute"
-import CartItemButton from "./cartItemButton"
+import CartItemButton from "./CartItemButton"
 
 function CartItemCard({ cart, addToCart, removeFromCart, loading }) {
   return (
