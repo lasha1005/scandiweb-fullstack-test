@@ -1,5 +1,3 @@
-import React from 'react'
-
 function CartItemButton({ loading, item, children,  updateQuantity}) {
   return (
     <button  
