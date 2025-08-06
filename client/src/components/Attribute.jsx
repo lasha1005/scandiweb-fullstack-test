@@ -34,7 +34,7 @@ function Attribute({attributes, selectedAttr, addAttribute, isCartAttribute}) {
                     ? isColor
                       ? "p-[1px] w-5 h-5"
                       : "w-11 h-11 text-sm"
-                    : "w-15 h-15 p-[4px]",
+                    : "w-15 h-15 p-[4px] cursor-pointer",
                   isSelected
                     ? "bg-black text-white"
                     : "bg-white text-black",
