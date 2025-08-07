@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import {useMutation} from "@apollo/client"
 import { PLACE_ORDER } from '../graphql/mutations/PLACE_ORDER'
 
@@ -9,11 +9,17 @@ export function useCart() {
 }
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState([]);
+    const initialCartState = JSON.parse(localStorage.getItem("cartState")) || []
+    
+    const [cart, setCart] = useState(initialCartState);
     const [cartVisible, setCartVisible] = useState(false);
 
     const [createOrder, { loading }] = useMutation(PLACE_ORDER)
     
+    useEffect(()=>{
+        localStorage.setItem('cartState', JSON.stringify(cart))
+    },[cart])
+
     function toggleCart(fromProductsButton) {
         if(!fromProductsButton) {
             setCartVisible(!cartVisible);
