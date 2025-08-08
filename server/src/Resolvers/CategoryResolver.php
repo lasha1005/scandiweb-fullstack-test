@@ -14,14 +14,15 @@ class CategoryResolver
     public static function resolveCategory(array $root, array $args, array $context) {
         $pdo = $context['pdo'];
         if(!empty($args['name'])) {
-            return Category::getCategory($args['name'], $pdo);
+            $category = Category::getCategory($args['name'], $pdo);
+            return ["categoryName" => $category['name']];
         }
         return null;
     }
 
     public static function resolveCategoryProducts(array $root, array $args, array $context) {
         $pdo = $context['pdo'];
-        if(empty($root['name'])) {
+        if(empty($root['categoryName'])) {
             return [];
         }
 
@@ -36,7 +37,7 @@ class CategoryResolver
             "tech" => TechProduct::class,
         ];
 
-        $categoryName = strtolower($root['name']);
+        $categoryName = strtolower($root['categoryName']);
         if(!isset($categoryMap[$categoryName])) {
             return [];
         }

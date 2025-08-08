@@ -33,14 +33,14 @@ class GraphQL {
             $queryType = new ObjectType([
                 "name" => "Query",
                 "fields" => [
-                    "Category" => [
+                    "category" => [
                         "type" => CategoryType::build($pdo),
                         "args" => [
                             "name" => Type::string()
                         ],
                         "resolve" => [CategoryResolver::class, 'resolveCategory']
                     ],
-                    "Product" => [
+                    "product" => [
                         "type" => ProductTypes::build($pdo),
                         "args" => [
                             "id" => Type::nonNull(Type::id())

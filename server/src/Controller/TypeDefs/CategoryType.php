@@ -16,6 +16,7 @@ class CategoryType
         return new ObjectType([
             "name" => "Category",
             "fields" => [
+                "categoryName" => Type::string(),
                 "products" => [
                     "type" => Type::listOf(ProductTypes::build()),
                     "resolve" => [CategoryResolver::class, 'resolveCategoryProducts']

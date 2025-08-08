@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models\Categories;
 
+use GraphQL\Error\UserError;
+
 abstract class Category
 {
     public static function getCategory(string $name, \PDO $pdo):array
@@ -12,7 +14,11 @@ abstract class Category
             SELECT * FROM categories WHERE categories.name = ?
         ");
         $stmt ->execute([$name]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if($result === false || $result === null) {
+            throw new UserError("Category named \"$name\" not found");
+        }
+        return $result;
     }
 
     abstract public function getType(): string;
