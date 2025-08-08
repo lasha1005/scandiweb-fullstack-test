@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { GET_PRODUCT } from "../../graphql/queries/GET_PRODUCT";
 import Gallery from "./components/Gallery";
@@ -13,7 +13,7 @@ function ProductDetails() {
     const params = useParams();
     const {
         data: 
-            {Product: productData} = {},
+            {product: productData} = {},
             loading,
             error
     } = useQuery(GET_PRODUCT, {variables: {id: params.id}});

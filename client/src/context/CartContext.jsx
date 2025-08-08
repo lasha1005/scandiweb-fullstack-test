@@ -9,7 +9,7 @@ export function useCart() {
 }
 
 export function CartProvider({ children }) {
-    const initialCartState = JSON.parse(localStorage.getItem("cartState")) || []
+    const initialCartState = JSON.parse(sessionStorage.getItem("cartState")) || []
     
     const [cart, setCart] = useState(initialCartState);
     const [cartVisible, setCartVisible] = useState(false);
@@ -17,7 +17,8 @@ export function CartProvider({ children }) {
     const [createOrder, { loading }] = useMutation(PLACE_ORDER)
     
     useEffect(()=>{
-        localStorage.setItem('cartState', JSON.stringify(cart))
+        // localStorage.setItem('cartState', JSON.stringify(cart))
+        sessionStorage.setItem('cartState', JSON.stringify(cart))
     },[cart])
 
     function toggleCart(fromProductsButton) {

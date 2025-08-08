@@ -15,9 +15,9 @@ function Header() {
         px-3 py-2 sm:px-12 sm:py-4 md:px-20 shadow flex items-center
       '>
         <div className='flex-1 flex gap-4 sm:gap-6 justify-start'>
-          <HeaderLink path="/all">All</HeaderLink>
-          <HeaderLink path="/clothes">Clothes</HeaderLink>
-          <HeaderLink path="/tech">Tech</HeaderLink>
+          <HeaderLink path="/category/all">All</HeaderLink>
+          <HeaderLink path="/category/clothes">Clothes</HeaderLink>
+          <HeaderLink path="/category/tech">Tech</HeaderLink>
         </div>
         <div className='flex-1 flex justify-center'>
             <img src={logo} alt="logo" className='h-8'/>

@@ -18,10 +18,8 @@ import { CartProvider } from './context/CartContext'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
-    <Route index element={<Navigate to="/all"/>} />
-    <Route path='all' element={<Products categoryName="All"/>}/>
-    <Route path='tech' element={<Products categoryName="Tech"/>}/>
-    <Route path='clothes' element={<Products categoryName="Clothes"/>}/>
+    <Route index element={<Navigate to="/category/all"/>} />
+    <Route path='category/:name' element={<Products />}/>
     <Route path='product/:id' element={<ProductDetails />}/>
     <Route path="*" element={<ErrorPage message={"Error 404 Page Not Found"}/>}/>
   </Route>
