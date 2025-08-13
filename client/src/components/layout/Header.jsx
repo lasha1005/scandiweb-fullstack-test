@@ -10,11 +10,10 @@ function Header() {
   const { getCartItemCount, cartVisible, toggleCart, loading } = useCart()
 
   const {
-    data,
-    error
+    data
   } = useQuery(GET_CATEGORIES)
 
-  const linkElement = data && data?.categories.map(({name}, index) => (
+  const linkElement = data && data?.categories.map((name, index) => (
     <HeaderLink key={index} path={`/category/${name}`}>{name}</HeaderLink>   
   ))
 

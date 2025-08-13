@@ -10,8 +10,8 @@ abstract class Category
 {
     
     public static function getCategories(\PDO $pdo) {
-        $stmt = $pdo->query("SELECT * FROM categories");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt = $pdo->query("SELECT name FROM categories");
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     public static function getCategory(string $name, \PDO $pdo):array

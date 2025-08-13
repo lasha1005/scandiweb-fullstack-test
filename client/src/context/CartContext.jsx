@@ -17,7 +17,6 @@ export function CartProvider({ children }) {
     const [createOrder, { loading }] = useMutation(PLACE_ORDER)
     
     useEffect(()=>{
-        // localStorage.setItem('cartState', JSON.stringify(cart))
         sessionStorage.setItem('cartState', JSON.stringify(cart))
     },[cart])
 
@@ -71,7 +70,9 @@ export function CartProvider({ children }) {
     }
 
     async function handleOrder() {
-
+        if(loading) {
+            return null;
+        }
         try {
             const response = await createOrder({variables: {
                 order : {

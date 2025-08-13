@@ -35,7 +35,7 @@ class GraphQL {
                 "name" => "Query",
                 "fields" => [
                     "categories" =>[
-                        "type" => Type::listOf(CategoriesType::build()),
+                        "type" => Type::listOf(Type::string()),
                         "resolve" => [CategoryResolver::class, 'resolveCategories']
                     ],
                     "category" => [
