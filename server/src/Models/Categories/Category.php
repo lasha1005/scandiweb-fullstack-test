@@ -8,6 +8,12 @@ use GraphQL\Error\UserError;
 
 abstract class Category
 {
+    
+    public static function getCategories(\PDO $pdo) {
+        $stmt = $pdo->query("SELECT * FROM categories");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public static function getCategory(string $name, \PDO $pdo):array
     {
         $stmt = $pdo->prepare("

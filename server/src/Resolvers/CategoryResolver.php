@@ -11,6 +11,11 @@ use App\Models\Products\TechProduct;
 
 class CategoryResolver
 {
+    public static function resolveCategories(array $root, array $args, array $context) {
+        $pdo = $context['pdo'];
+        return $categories = Category::getCategories($pdo);
+    }
+
     public static function resolveCategory(array $root, array $args, array $context) {
         $pdo = $context['pdo'];
         if(!empty($args['name'])) {

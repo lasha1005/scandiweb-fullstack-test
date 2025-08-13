@@ -3,21 +3,29 @@ import cartLogo from "../../assets/Cart.png"
 import Cart from '../Cart'
 import { useCart } from "../../context/CartContext";
 import HeaderLink from './HeaderLink'
+import { useQuery } from "@apollo/client";
+import { GET_CATEGORIES } from "../../graphql/queries/GET_CATEGORIES";
 
 function Header() {
   const { getCartItemCount, cartVisible, toggleCart, loading } = useCart()
 
+  const {
+    data,
+    error
+  } = useQuery(GET_CATEGORIES)
+
+  const linkElement = data && data?.categories.map(({name}, index) => (
+    <HeaderLink key={index} path={`/category/${name}`}>{name}</HeaderLink>   
+  ))
+
   return (
-    
     <header>
       <nav className='
         fixed top-0 left-0 right-0 z-30 bg-white 
         px-3 py-2 sm:px-12 sm:py-4 md:px-20 shadow flex items-center
       '>
         <div className='flex-1 flex gap-4 sm:gap-6 justify-start'>
-          <HeaderLink path="/category/all">All</HeaderLink>
-          <HeaderLink path="/category/clothes">Clothes</HeaderLink>
-          <HeaderLink path="/category/tech">Tech</HeaderLink>
+          {linkElement}
         </div>
         <div className='flex-1 flex justify-center'>
             <img src={logo} alt="logo" className='h-8'/>

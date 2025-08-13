@@ -15,6 +15,7 @@ use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
 use App\Controller\TypeDefs\ProductTypes;
+use App\Controller\TypeDefs\CategoriesType;
 use App\Resolvers\CategoryResolver;
 use App\Resolvers\OrderResolver;
 use App\Resolvers\ProductResolver;
@@ -33,6 +34,10 @@ class GraphQL {
             $queryType = new ObjectType([
                 "name" => "Query",
                 "fields" => [
+                    "categories" =>[
+                        "type" => Type::listOf(CategoriesType::build()),
+                        "resolve" => [CategoryResolver::class, 'resolveCategories']
+                    ],
                     "category" => [
                         "type" => CategoryType::build($pdo),
                         "args" => [
